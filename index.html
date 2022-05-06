@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminação de Gauss</title>
+
+    <script src="main.js"></script>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 4rem; flex-direction: column; gap: 
+    2rem;">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <label>Linhas</label>
+            <input id="getLines" type="number">
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <label>Colunas</label>
+            <input id="getColumns" type="number">
+        </div>
+
+        <button onclick="addMatrix()">Gerar Matriz</button>
+    </div>
+
+    <table id="matrixInputContainer" style="border: 1px solid black; text-align: center;">
+        <tr>
+            <td>Col 1</td>
+            <td>Col 2</td>
+            <td>Col 3</td>
+        </tr>
+        <tr>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+        </tr>
+        <tr>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+        </tr>
+        <tr>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+        </tr>
+    </table>
+</body>
+</html>
