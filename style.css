@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #f0f2f5;
+}
+
+button, input {
+    padding: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+}
+
+input {
+    border: 1px solid ;
+}
+
+button {
+    background-color: rgb(26, 115, 232);
+    color: #f0f2f5;
+    cursor: pointer;
+}
+
+label {
+    padding: 1rem;
+}
+
+#finalMatrixContainer {
+    background-color: rgb(26, 115, 232);
+    color: #f0f2f5;
+    width: 20%;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+table {
+    border-radius: 1rem;
+    padding: 1rem;
+}

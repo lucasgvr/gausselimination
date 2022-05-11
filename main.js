@@ -1,11 +1,8 @@
 let lines = 0
 let columns = 0
 
-let matrix = []
-
-let step = 0
-
-let multipliers = []
+let matrixA = []
+let matrixB = []
 
 function addMatrix(){
     lines = 0
@@ -28,15 +25,17 @@ function addMatrix(){
 
             let numInput = document.createElement("input");
 
-            numInput.style = "height: 50px; width: 50px; text-align: center;"
+            numInput.style = "height: 60px; width: 60px; text-align: center;"
             numInput.name = "line" + i + "column" + j;
             numInput.id = "line" + i + "column" + j;
 
             if(numInput.id === "line0column0") {
                 dataElement.innerHTML = ""
+            } else if(numInput.id === `line0column${columns}`) {
+                dataElement.innerHTML = "Resultado"
             } else if(numInput.id === "line0column" + j) {
                 dataElement.innerHTML = "Coluna " + j
-            } else if (numInput.id === "line" + i + "column0") {
+            } else if(numInput.id === "line" + i + "column0") {
                 dataElement.innerHTML = "Linha " + i
             } else {
                 dataElement.appendChild(numInput)
@@ -51,46 +50,90 @@ function addMatrix(){
 }
 
 function getMatrixValues() {
-    matrix = []
+    matrixA = []
+    matrixB = []
+
     let aux = []
 
     for (let i = 1; i <= lines; i++) {
         aux = []
 
         for(let j = 1; j <= columns; j++) {
-            aux.push(parseFloat(document.getElementById(`line${i}column${j}`).value))
+            if(j == columns) {
+                matrixB.push(parseFloat(document.getElementById(`line${i}column${j}`).value))
+            } else {
+                aux.push(parseFloat(document.getElementById(`line${i}column${j}`).value))
+            }
         }
 
-        matrix.push(aux)
+        matrixA.push(aux)
     }
 }
 
-function calcMatrix() {
-    getMatrixValues()
+function calculateMatrix(A, b) {
+    let auxOne, auxTwo, auxThree, auxFour, auxFive
 
-    multipliers = []
+    for(auxThree = 0; auxThree < A.length - 1; auxThree++) {
+        let max = Math.abs(A[auxThree][auxThree])
+        let maxIndex = auxThree
 
-    /* Não pode ser zero */
-    let firstTerm = matrix[0][0]
-    
-    /* Aux = matrixLine */
-    for(let i = 1; i < lines; i++) {
-        let aux = matrix[i]
+        for(auxOne = auxThree + 1; auxOne < A.length; auxOne++) {
+            if(max < Math.abs(A[auxOne][auxThree])) {
+                max = Math.abs(A[auxOne][auxThree])
+                maxIndex = auxOne
+            }
+        }
 
-        let multiplier = aux[0]/firstTerm
+        if(maxIndex != auxThree) {
+            for(auxTwo = 0; auxTwo < A.length; auxTwo++) {
+                let temp = A[auxThree][auxTwo]
+                A[auxThree][auxTwo] = A[maxIndex][auxTwo]
+                A[maxIndex][auxTwo] = temp
+            }
 
-        multipliers.push(multiplier)
+            let temp = b[auxThree]
+            b[auxThree] = b[maxIndex]
+            b[maxIndex] = temp
+        }
 
-        let newLine = []
+        if(A[auxThree][auxThree] == 0) {
+            return
+        } else {
+            for(auxFive = auxThree + 1; auxFive < A.length; auxFive++) {
+                let F = -A[auxFive][auxThree] / A[auxThree][auxThree]
+                A[auxFive][auxThree] = 0
+                b[auxFive] = b[auxFive] + F * b[auxThree]
 
-        console.log(aux)
-        console.log(multipliers)
-        console.log(firstTerm)
-        
-        for(let j = 0; j < columns; j++) {
-            newLine.push(aux[j] - multipliers[i - 1]*firstTerm)
-
-            console.log(newLine)
+                for(auxFour = auxThree + 1; auxFour < A.length; auxFour++) {
+                    A[auxFive][auxFour] = A[auxFive][auxFour] + F * A[auxThree][auxFour]
+                }
+            }
         }
     }
+
+    let finalMatrix = []
+
+    for(auxOne = A.length - 1; auxOne >= 0; auxOne--) {
+        finalMatrix[auxOne] = b[auxOne]
+
+        for(auxTwo = auxOne + 1; auxTwo < A.length; auxTwo++) {
+            finalMatrix[auxOne] = finalMatrix[auxOne] - finalMatrix[auxTwo] * A[auxOne][auxTwo]
+        }
+
+        finalMatrix[auxOne] = finalMatrix[auxOne] / A[auxOne][auxOne]
+    }
+
+    let finalMatrixContainer = document.getElementById("finalMatrixContainer")
+
+    while (finalMatrixContainer.hasChildNodes()) {
+        finalMatrixContainer.removeChild(finalMatrixContainer.lastChild);
+    }
+
+    finalMatrixContainer.style = "border: 1px solid black; text-align: center; margin-left: auto; margin-right: auto; margin-top: 2rem; padding: 0.5rem;"
+    finalMatrixContainer.innerHTML = finalMatrix
+}
+
+function calculateAll() {
+    getMatrixValues()
+    calculateMatrix(matrixA, matrixB)
 }

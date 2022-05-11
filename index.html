@@ -7,9 +7,10 @@
     <title>Eliminação de Gauss</title>
 
     <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 4rem; flex-direction: column; gap: 
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 4rem; margin-top: 4rem;flex-direction: column; gap: 
     2rem;">
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <label>Linhas</label>
@@ -20,13 +21,20 @@
             <input id="getColumns" type="number">
         </div>
 
-        <button onclick="addMatrix()">Gerar Matriz</button>
+        <button onclick="addMatrix()"><a href="#finalMatrixContainer">Gerar Matriz</a></button>
     </div>
 
     <table id="matrixInputContainer"></table>
 
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 2rem;">
-        <button onclick="calcMatrix()">Calcular Matriz</button>
+        <button onclick="calculateAll()"><a href="#finalMatrixContainer">Calcular Matriz</a></button>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 2rem; font-size: 1.5rem;">
+        Resultado: 
+    </div>
+    <div id="finalMatrixContainer" style="display: flex; justify-content: center; align-items: center; margin-top: 2rem; font-size: 1.5rem;">
+        
     </div>
 </body>
 </html>
