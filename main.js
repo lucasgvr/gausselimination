@@ -70,6 +70,13 @@ function getMatrixValues() {
     }
 }
 
+function roundResult(number, precision) {
+    var factor = Math.pow(10, precision);
+    var tempNumber = number * factor;
+    var roundedTempNumber = Math.round(tempNumber);
+    return roundedTempNumber / factor;
+};
+
 function calculateMatrix(A, b) {
     let auxOne, auxTwo, auxThree, auxFour, auxFive
 
@@ -134,9 +141,7 @@ function calculateMatrix(A, b) {
     }
 
     finalMatrixContainer.style = "border: 1px solid black; text-align: center; margin-left: auto; margin-right: auto; margin-top: 2rem; padding: 0.5rem;"
-    finalMatrixContainer.innerHTML = finalMatrix.map(function(number) => {
-        return (number*1000) / 1000
-    })
+    finalMatrixContainer.innerHTML = finalMatrix.map(roundResult(number, 1))
 }
 
 function calculateAll() {
