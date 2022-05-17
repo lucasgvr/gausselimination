@@ -134,10 +134,10 @@ function calculateMatrix(A, b) {
     }
 
     finalMatrixContainer.style = "border: 1px solid black; text-align: center; margin-left: auto; margin-right: auto; margin-top: 2rem; padding: 0.5rem;"
-    finalMatrixContainer.innerHTML = finalMatrix.map(function(number) => {
-        var factor = Math.pow(10, 1)
-        var tempNumber = number * factor
-        var roundedTempNumber = Math.round(tempNumber)
+    finalMatrixContainer.innerHTML = finalMatrix.map(function(number) {
+        let factor = Math.pow(10, 1)
+        let tempNumber = number * factor
+        let roundedTempNumber = Math.round(tempNumber)
         return roundedTempNumber / factor
     })
 }
